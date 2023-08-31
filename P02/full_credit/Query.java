@@ -34,6 +34,6 @@ public class Query {
         Engine engineRunning = Engine.valueOf(engineOn);
         AI ai = new AI(engineRunning);
         Scanner input = new Scanner(System.in);
-        System.out.println("Start://d");
+        System.out.println(engineOn + " Activated Ask anything :");
     }
 }
