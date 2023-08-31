@@ -35,5 +35,16 @@ public class Query {
         AI ai = new AI(engineRunning);
         Scanner input = new Scanner(System.in);
         System.out.println(engineOn + " Activated Ask anything :");
+        while (input.hasNextLine()) {
+            String userQuery = input.nextLine();
+            System.out.println(ai.query(userQuery));
+        }
+        input.close();
+        System.out.println("5 recent queries were:");
+        for (String query : ai.getQueryHistory()) {
+            if (query != null) {
+                System.out.println(query);
+            }
+        }
     }
 }

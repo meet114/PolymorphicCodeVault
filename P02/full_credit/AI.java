@@ -12,11 +12,11 @@ public class AI {
     }
 
     public String query(String inQuery) {
-        for (int i = querySize - 1; i > 0; i++) {
+        for (int i = querySize - 1; i > 0; i--) {
             queries[i] = queries[i - 1];
         }
         queries[0] = inQuery;
-        return "AI (" + engine + ") processed: '" + inQuery + "'.";
+        return "Interesting question! Let me think about it...";
     }
 
     public String[] getQueryHistory() {
