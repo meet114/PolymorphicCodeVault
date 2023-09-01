@@ -1,29 +1,28 @@
 package P02.bonus;
 
+import java.util.Stack;
+
 public class AI {
 
     private Engine engine;
-    private String[] queries;
+    private Stack<String> queries;
     private final int querySize = 5;
 
     public AI(Engine engine) {
         this.engine = engine;
-        this.queries = new String[querySize];
+        this.queries = new Stack<>();
     }
 
     public String query(String inQuery) {
-        for (int i = querySize - 1; i > 0; i--) {
-            queries[i] = queries[i - 1];
-        }
-        queries[0] = inQuery;
+        queries.push(inQuery);
         return "Interesting question! Let me think about it...";
     }
 
-    public String[] getQueryHistory() {
+    public Stack<String> getQueryHistory() {
         return queries;
     }
 
-    public void setQueryHistory(String[] queries) {
+    public void setQueryHistory(Stack<String> queries) {
         this.queries = queries;
     }
 }
