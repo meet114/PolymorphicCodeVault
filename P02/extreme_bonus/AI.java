@@ -20,6 +20,9 @@ public class AI {
 
     public String query(String inQuery) {
         queries.push(inQuery);
+        if (eliza != null) {
+            return eliza.processInput(inQuery);
+        }
         return "Interesting question! Let me think about it...";
     }
 
@@ -29,5 +32,9 @@ public class AI {
 
     public void setQueryHistory(Stack<String> queries) {
         this.queries = queries;
+    }
+
+    public boolean isFinished() {
+        return eliza != null && eliza.finished();
     }
 }
