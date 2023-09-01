@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<project name="CSE1325_Bonus" default="build">
+
+    
+    <target name="build" description="Compile all Java source files">
+        <mkdir dir="bin"/>
+        <javac includeantruntime="false" debug="true" failonerror="true" destdir="bin">
+            <src path="."/>
+        </javac>
+    </target>
+
+    
+    <target name="run" depends="build" description="Run the Query class">
+        <java classname="P02.bonus.Query" fork="true">
+            <classpath>
+                <pathelement location="bin"/>
+            </classpath>
+            <arg line="GEMINI"/>
+        </java>
+    </target>
+
+
+    <target name="clean" description="Clean compiled class files">
+    <delete failonerror="false">
+        <fileset dir="bin">
+            <include name="**/*.class"/>
+        </fileset>
+    </delete>
+</target>
+
+</project>
