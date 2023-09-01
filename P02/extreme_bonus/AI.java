@@ -7,10 +7,15 @@ public class AI {
 
     private Engine engine;
     private Stack<String> queries;
+    private Eliza eliza;
 
     public AI(Engine engine) {
         this.engine = engine;
         this.queries = new Stack<>();
+        if (engine == Engine.ELIZA) {
+            this.eliza = new Eliza();
+            System.out.println(eliza.processInput(eliza.welcome));
+        }
     }
 
     public String query(String inQuery) {
