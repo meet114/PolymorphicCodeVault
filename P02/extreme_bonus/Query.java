@@ -39,6 +39,10 @@ public class Query {
             String userQuery = input.nextLine();
             System.out.println(ai.query(userQuery));
         }
+        while (!ai.isFinished() && input.hasNextLine()) {
+            String userQuery = input.nextLine();
+            System.out.println(ai.query(userQuery));
+        }
         input.close();
         System.out.println("All Recent queries: ");
         for (String query : ai.getQueryHistory()) {
