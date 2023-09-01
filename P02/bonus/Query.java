@@ -40,7 +40,7 @@ public class Query {
             System.out.println(ai.query(userQuery));
         }
         input.close();
-        System.out.println("5 recent queries were:");
+        System.out.println("All Recent queries: ");
         for (String query : ai.getQueryHistory()) {
             System.out.println(query);
         }

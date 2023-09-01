@@ -6,7 +6,6 @@ public class AI {
 
     private Engine engine;
     private Stack<String> queries;
-    private final int querySize = 5;
 
     public AI(Engine engine) {
         this.engine = engine;
