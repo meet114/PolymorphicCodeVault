@@ -11,7 +11,7 @@ public class Query {
                 System.out.println(engine);
             }
             System.out.println(
-                "Engines can be run after: Java P02.bonus.Query <Engine_name.>"
+                "Engines can be run after: java P02.extreme_bonus.Query <Engine_name>"
             );
             return;
         }
