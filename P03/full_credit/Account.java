@@ -13,7 +13,7 @@ public class Account {
         }
         this.id = nextID++;
         this.name = name;
-        this.status = AccountStatus.NORMAL;
+        this.status = AccountStatus.Normal;
     }
 
     public void setStatus(AccountStatus status) {
@@ -22,19 +22,19 @@ public class Account {
 
     public boolean isMuted() {
         return (
-            this.status == AccountStatus.MUTED ||
-            this.status == AccountStatus.BLOCKED
+            this.status == AccountStatus.Muted ||
+            this.status == AccountStatus.Blocked
         );
     }
 
     public boolean isBlocked() {
-        return this.status == AccountStatus.BLOCKED;
+        return this.status == AccountStatus.Blocked;
     }
 
     @Override
     public String toString() {
         String result = name + " (" + id + ")";
-        if (status != AccountStatus.NORMAL) {
+        if (status != AccountStatus.Normal) {
             result += " [" + status + "]";
         }
         return result;
