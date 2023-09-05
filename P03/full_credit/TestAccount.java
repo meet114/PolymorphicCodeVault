@@ -1,5 +1,3 @@
-package P03.full_credit;
-
 public class TestAccount {
 
     public static void main(String[] args) {

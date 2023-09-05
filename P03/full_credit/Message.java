@@ -1,5 +1,3 @@
-package P03.full_credit;
-
 import java.util.ArrayList;
 import java.util.Date;
 

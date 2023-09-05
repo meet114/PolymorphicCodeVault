@@ -1,5 +1,3 @@
-package P03.full_credit;
-
 public enum AccountStatus {
     Normal, // Account is fully functional
     Muted, // Can see posts but their own posts are hidden
