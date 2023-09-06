@@ -21,5 +21,21 @@ public class DemoMessage {
             "Hello! Let's start a discussion."
         );
         System.out.println(m1);
+
+        System.out.println("\nThis leads to a response:\n===");
+        Message m2 = new Message(
+            accounts.get(5),
+            m1,
+            "Sounds great! What's the topic?"
+        );
+        System.out.println(m2);
+
+        System.out.println("\n===");
+        Message m3 = new Message(
+            accounts.get(2),
+            m2,
+            "I think we should talk about emerging technologies."
+        );
+        System.out.println(m3);
     }
 }
