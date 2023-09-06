@@ -24,7 +24,7 @@ public class DemoMessage {
 
         System.out.println("\nThis leads to a response:\n===");
         Message m2 = new Message(
-            accounts.get(5),
+            accounts.get(1),
             m1,
             "Sounds great! What's the topic?"
         );
