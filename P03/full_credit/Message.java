@@ -39,7 +39,28 @@ public class Message {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("Date: ").append(date).append("\n");
+        sb.append("From: ").append(from.toString()).append("\n");
 
+        if (repliedTo != null) {
+            sb
+                .append("In reply to: ")
+                .append(repliedTo.from.toString())
+                .append("\n");
+        }
+
+        if (!replies.isEmpty()) {
+            sb.append("Replies: ");
+            for (int i = 0; i < replies.size(); i++) {
+                sb.append(replies.get(i).from.toString());
+                if (i < replies.size() - 1) {
+                    sb.append(", ");
+                }
+            }
+            sb.append("\n");
+        }
+
+        sb.append("\n").append(body).append("\n");
         return sb.toString();
     }
 }
