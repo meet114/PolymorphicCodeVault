@@ -7,8 +7,10 @@ public class DemoMessage {
         accounts.add(new Account("Meet"));
         accounts.add(new Account("Jay"));
         accounts.add(new Account("Manit"));
+        accounts.add(new Account("Manan"));
+        accounts.add(new Account("Ved"));
 
-        System.out.println("Here are 3 accounts for the demo.");
+        System.out.println("Here are 5 accounts for the demo.");
         System.out.println(
             "The user name is followed by the account number in parentheses.\n"
         );
@@ -37,5 +39,63 @@ public class DemoMessage {
             "I think we should talk about emerging technologies."
         );
         System.out.println(m3);
+
+        System.out.println("\n===");
+        Message m4 = new Message(
+            accounts.get(3),
+            m3,
+            "Artificial Intelligence is advancing rapidly!"
+        );
+        System.out.println(m4);
+
+        System.out.println("\n===");
+        Message m5 = new Message(
+            accounts.get(4),
+            m4,
+            "AI is powerful, but we must also consider ethical concerns."
+        );
+        System.out.println(m5);
+
+        System.out.println("\nStarting a second discussion thread:\n===");
+        Message m6 = new Message(
+            accounts.get(2),
+            null,
+            "What are your thoughts on Quantum Computing?"
+        );
+        System.out.println(m6);
+
+        System.out.println("\n===");
+        Message m7 = new Message(
+            accounts.get(4),
+            m6,
+            "Quantum Computing could revolutionize cryptography."
+        );
+        System.out.println(m7);
+
+        System.out.println("\n===");
+        Message m8 = new Message(
+            accounts.get(1),
+            m7,
+            "But it’s still in the early stages of development."
+        );
+        System.out.println(m8);
+
+        System.out.println("\n===");
+        Message m9 = new Message(
+            accounts.get(3),
+            m6,
+            "I believe Quantum Computing and AI together could be game-changing."
+        );
+        System.out.println(m9);
+
+        System.out.println("\n===");
+        Message m10 = new Message(
+            accounts.get(0),
+            null,
+            "This is an isolated message with no replies."
+        );
+        System.out.println(m10);
+
+        System.out.println("\nTest case execution completed.");
     }
 }
