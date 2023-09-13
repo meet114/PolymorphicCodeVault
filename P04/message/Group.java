@@ -24,6 +24,6 @@ public class Group {
 
     @Override
     public String toString() {
-        return active ? name : name + "[inactive]";
+        return active ? name : name + " [inactive]";
     }
 }
