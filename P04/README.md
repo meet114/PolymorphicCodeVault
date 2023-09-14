@@ -93,4 +93,4 @@ Inspired by Professor George F. Rice’s `TestMessage` structure and project gui
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.en.html)
