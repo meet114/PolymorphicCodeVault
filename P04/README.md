@@ -90,3 +90,7 @@ Inspired by Professor George F. Rice’s `TestMessage` structure and project gui
 - **Generated ant javadoc for new changes**.
 - **JavaDoc added to other classes**.
 - **Added JavaDocs in Group and generated ant javadoc**.
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
