@@ -8,7 +8,7 @@ import java.util.Date;
  * Represents a message in the messaging system.
  * Messages can be standalone or replies to other messages, and they can accumulate replies.
  *
- * @author Meet Saspara
+ * @author Meetkumar Saspara
  * @version 1.1
  * @since 2025
  */

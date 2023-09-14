@@ -4,7 +4,7 @@ package account;
  * Represents a user account in the system.
  * Each account has a name, unique ID, and a status indicating whether it is normal, muted, or blocked.
  *
- * @author Meet Saspara
+ * @author Meetkumar Saspara
  * @version 1.1
  * @since 2025
  */

@@ -8,7 +8,7 @@ package account;
  *     <li><b>Blocked</b>: Cannot log in.</li>
  * </ul>
  *
- * @author Meet Saspara
+ * @author Meetkumar Saspara
  * @version 1.1
  * @since 2025
  */

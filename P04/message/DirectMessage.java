@@ -8,7 +8,7 @@ import account.Account;
  *
  * @see Message
  *
- * @author Meet Saspara
+ * @author Meetkumar Saspara
  * @version 1.1
  * @since 2025
  */
