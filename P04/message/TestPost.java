@@ -7,11 +7,18 @@ import account.Account;
  * This test verifies the toString() output of the Post class to ensure
  * that it includes the correct group and message information.
  *
+ * Note: The method {@code stripDate} was inspired by {@code TestMessage} by Professor George F. Rice.
+ *
  * @author Meetkumar Saspara
- * @version 1.0
+ * @version 1.1
  * @since 2025
  */
 public class TestPost {
+
+    private static String stripDate(Message m) {
+        String s = m.toString();
+        return s.replaceAll("(?m)^Date:.*\\n", "");
+    }
 
     public static void main(String[] args) {
         int result = 0;
@@ -25,12 +32,12 @@ public class TestPost {
         expected =
             "Group: Tech Enthusiasts\nFrom: Meet (1)\n\nWelcome to the group!\n";
 
-        if (!expected.equals(post.toString())) {
+        if (!expected.equals(stripDate(post))) {
             System.err.println(
                 "\nERROR: Post toString does not match expected output."
             );
             System.err.println("    Expected: \n" + expected);
-            System.err.println("    Actual:   \n" + post);
+            System.err.println("    Actual:   \n" + stripDate(post));
             result |= vector;
         }
 
