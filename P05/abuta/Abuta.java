@@ -52,7 +52,7 @@ public class Abuta {
 
             int choice = Menu.getInt("Choose an option:");
             menu.run(choice);
-
+            if (!running) return;
             if (message.getReply(0) != null) {
                 message = message.getReply(0);
             }
@@ -72,15 +72,38 @@ public class Abuta {
     }
 
     private void showReply() {
-        if (message.getReply(0) == null) {
-            output = "No replies available.";
-        } else {
-            int index = Menu.getInt("Choose a reply :");
-            if (message.getReply(index) != null) {
-                message = message.getReply(index);
-            } else {
-                output = "Invalid selection.";
+        int numReplies = 0;
+
+        try {
+            for (int i = 0;; i++) {
+                if (message.getReply(i) != null) {
+                    numReplies++;
+                } else {
+                    break;
+                }
             }
+        } catch (Exception e) {
+            output = "Error: " + e.getMessage();
+        }
+
+        if (numReplies == 0) {
+            output = "No replies available.";
+            return;
+        }
+
+        if (numReplies == 1) {
+            message = message.getReply(0);
+            return;
+        }
+
+        int index = Menu.getInt(
+            "Choose a reply (0 - " + (numReplies - 1) + "):"
+        );
+
+        if (index >= 0 && index < numReplies) {
+            message = message.getReply(index);
+        } else {
+            output = "Invalid selection.";
         }
     }
 
@@ -88,5 +111,60 @@ public class Abuta {
         running = false;
     }
 
-    private void reply() {}
+    private void reply() {
+        char type = Menu.getChar("Post (P) or Direct Message (D)?");
+
+        int authorIndex = Menu.selectItemFromList("Select Author:", accounts);
+        if (authorIndex < 0 || authorIndex >= accounts.size()) {
+            output = "Invalid selection.";
+            return;
+        }
+        Account author = accounts.get(authorIndex);
+
+        Message newMessage;
+        if (type == 'P' || type == 'p') {
+            int groupIndex = Menu.selectItemFromList("Select Group:", groups);
+            if (groupIndex < 0 || groupIndex >= groups.size()) {
+                output = "Invalid selection.";
+                return;
+            }
+            Group group = groups.get(groupIndex);
+
+            String body = Menu.getString("Enter message:").trim();
+            if (body.isEmpty()) {
+                output = "Message cannot be empty.";
+                return;
+            }
+
+            newMessage = new Post(author, group, body);
+        } else {
+            int recipientIndex = Menu.selectItemFromList(
+                "Select Recipient:",
+                accounts
+            );
+            if (recipientIndex < 0 || recipientIndex >= accounts.size()) {
+                output = "Invalid selection.";
+                return;
+            }
+            Account recipient = accounts.get(recipientIndex);
+
+            String body = Menu.getString("Enter message:").trim();
+            if (body.isEmpty()) {
+                output = "Message cannot be empty.";
+                return;
+            }
+
+            newMessage = new DirectMessage(author, recipient, body);
+        }
+
+        if (message != null) {
+            message = newMessage;
+        } else {
+            output = "Error: Cannot add reply to a null message.";
+        }
+    }
+
+    public static void main(String[] args) {
+        new Abuta().mdi();
+    }
 }
