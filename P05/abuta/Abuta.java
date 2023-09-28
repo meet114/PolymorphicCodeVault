@@ -42,6 +42,9 @@ public class Abuta {
         menu.addMenuItem(new MenuItem("Show Reply", this::showReply));
         menu.addMenuItem(new MenuItem("Show Replied To", this::showRepliedTo));
         menu.addMenuItem(new MenuItem("Add Reply", this::reply));
+
+        menu.addMenuItem(new MenuItem("Add Account", this::addAccount));
+        menu.addMenuItem(new MenuItem("Add Group", this::addGroup));
     }
 
     public void mdi() {
@@ -143,6 +146,28 @@ public class Abuta {
         }
 
         output = "Reply added successfully.";
+    }
+
+    private void addAccount() {
+        String name = Menu.getString("Enter new account name:").trim();
+        if (name.isEmpty()) {
+            output = "Account name cannot be empty.";
+            return;
+        }
+
+        accounts.add(new Account(name));
+        output = "Account '" + name + "' added successfully.";
+    }
+
+    private void addGroup() {
+        String name = Menu.getString("Enter new group name:").trim();
+        if (name.isEmpty()) {
+            output = "Group name cannot be empty.";
+            return;
+        }
+
+        groups.add(new Group(name));
+        output = "Group '" + name + "' added successfully.";
     }
 
     public static void main(String[] args) {
