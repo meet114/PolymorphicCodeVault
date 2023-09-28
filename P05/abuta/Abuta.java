@@ -19,7 +19,6 @@ public class Abuta {
         this.running = true;
         this.output = "";
 
-        // Instantiate lists as ArrayLists (as required)
         this.accounts = new ArrayList<>();
         this.groups = new ArrayList<>();
     }
