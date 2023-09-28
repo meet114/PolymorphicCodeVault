@@ -45,6 +45,13 @@ public class Abuta {
 
         menu.addMenuItem(new MenuItem("Add Account", this::addAccount));
         menu.addMenuItem(new MenuItem("Add Group", this::addGroup));
+
+        menu.addMenuItem(
+            new MenuItem("Mute/Unmute Account", this::toggleMuteAccount)
+        );
+        menu.addMenuItem(
+            new MenuItem("Enable/Disable Group", this::toggleGroupStatus)
+        );
     }
 
     public void mdi() {
@@ -168,6 +175,48 @@ public class Abuta {
 
         groups.add(new Group(name));
         output = "Group '" + name + "' added successfully.";
+    }
+
+    private void toggleMuteAccount() {
+        int accountIndex = Menu.selectItemFromList(
+            "Select an account to mute/unmute:",
+            accounts
+        );
+        if (accountIndex < 0 || accountIndex >= accounts.size()) {
+            output = "Invalid selection.";
+            return;
+        }
+
+        Account selected = accounts.get(accountIndex);
+
+        if (selected.isMuted()) {
+            selected.setStatus(AccountStatus.Normal);
+            output = "Account '" + selected.toString() + "' is now Unmuted.";
+        } else {
+            selected.setStatus(AccountStatus.Muted);
+            output = "Account '" + selected.toString() + "' is now Muted.";
+        }
+    }
+
+    private void toggleGroupStatus() {
+        int groupIndex = Menu.selectItemFromList(
+            "Select a group to enable/disable:",
+            groups
+        );
+        if (groupIndex < 0 || groupIndex >= groups.size()) {
+            output = "Invalid selection.";
+            return;
+        }
+
+        Group selected = groups.get(groupIndex);
+
+        if (!selected.isActive()) {
+            selected.enable();
+            output = "Group '" + selected.toString() + "' is now Enabled.";
+        } else {
+            selected.disable();
+            output = "Group '" + selected.toString() + "' is now Disabled.";
+        }
     }
 
     public static void main(String[] args) {
