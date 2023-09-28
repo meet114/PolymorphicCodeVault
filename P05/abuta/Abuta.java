@@ -48,18 +48,42 @@ public class Abuta {
             output = "";
             System.out.println("Current Message: \n" + message);
 
-            System.out.println(menu.toString());
+            System.out.print("Replies: ");
+            boolean hasReplies = false;
+
+            for (int i = 0;; i++) {
+                Message reply = message.getReply(i);
+                if (reply == null) break;
+
+                hasReplies = true;
+                System.out.print("[" + i + "] ");
+
+                String replyText = reply.toString();
+                String author = "Unknown Author";
+
+                if (replyText.contains("From:")) {
+                    int start = replyText.indexOf("From:") + 6;
+                    int end = replyText.indexOf("\n", start);
+                    author =
+                        (end == -1)
+                            ? replyText.substring(start)
+                            : replyText.substring(start, end);
+                }
+
+                System.out.print(author + ", ");
+            }
+
+            if (!hasReplies) {
+                System.out.print("No replies available.");
+            }
+            System.out.println();
+
+            System.out.println(menu);
 
             int choice = Menu.getInt("Choose an option:");
             menu.run(choice);
-            if (!running) return;
-            if (message.getReply(0) != null) {
-                message = message.getReply(0);
-            }
 
-            if (message.getRepliedTo() == null) {
-                running = false;
-            }
+            if (!running) return;
         }
     }
 
