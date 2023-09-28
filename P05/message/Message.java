@@ -80,6 +80,7 @@ public class Message {
      * @return formatted message with sender and reply information
      * @since 2025
      */
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -106,9 +107,15 @@ public class Message {
                 }
             }
             sb.append("\n");
+        } else {
+            sb.append("Replies: None\n");
         }
 
         sb.append("\n").append(body).append("\n");
         return sb.toString();
+    }
+
+    public int getNumReplies() {
+        return replies.size();
     }
 }

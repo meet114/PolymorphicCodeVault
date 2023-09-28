@@ -21,11 +21,13 @@ public class Abuta {
 
         this.accounts = new ArrayList<>();
         this.groups = new ArrayList<>();
+
         accounts.add(new Account("Meet"));
         accounts.add(new Account("Jay"));
         accounts.add(new Account("Manit"));
         accounts.add(new Account("Ved"));
         accounts.add(new Account("Prof Rice"));
+
         groups.add(new Group("Gaming Legends"));
         groups.add(new Group("Science Wizards"));
         groups.add(new Group("Movie Buffs"));
@@ -34,6 +36,7 @@ public class Abuta {
 
         this.message =
             new Post(accounts.get(0), groups.get(0), "Welcome to the group!");
+
         menu = new Menu();
         menu.addMenuItem(new MenuItem("Exit", this::endApp));
         menu.addMenuItem(new MenuItem("Show Reply", this::showReply));
@@ -48,42 +51,10 @@ public class Abuta {
             output = "";
             System.out.println("Current Message: \n" + message);
 
-            System.out.print("Replies: ");
-            boolean hasReplies = false;
-
-            for (int i = 0;; i++) {
-                Message reply = message.getReply(i);
-                if (reply == null) break;
-
-                hasReplies = true;
-                System.out.print("[" + i + "] ");
-
-                String replyText = reply.toString();
-                String author = "Unknown Author";
-
-                if (replyText.contains("From:")) {
-                    int start = replyText.indexOf("From:") + 6;
-                    int end = replyText.indexOf("\n", start);
-                    author =
-                        (end == -1)
-                            ? replyText.substring(start)
-                            : replyText.substring(start, end);
-                }
-
-                System.out.print(author + ", ");
-            }
-
-            if (!hasReplies) {
-                System.out.print("No replies available.");
-            }
-            System.out.println();
-
             System.out.println(menu);
 
             int choice = Menu.getInt("Choose an option:");
             menu.run(choice);
-
-            if (!running) return;
         }
     }
 
@@ -96,19 +67,7 @@ public class Abuta {
     }
 
     private void showReply() {
-        int numReplies = 0;
-
-        try {
-            for (int i = 0;; i++) {
-                if (message.getReply(i) != null) {
-                    numReplies++;
-                } else {
-                    break;
-                }
-            }
-        } catch (Exception e) {
-            output = "Error: " + e.getMessage();
-        }
+        int numReplies = message.getNumReplies();
 
         if (numReplies == 0) {
             output = "No replies available.";
@@ -146,6 +105,8 @@ public class Abuta {
         Account author = accounts.get(authorIndex);
 
         Message newMessage;
+        String body;
+
         if (type == 'P' || type == 'p') {
             int groupIndex = Menu.selectItemFromList("Select Group:", groups);
             if (groupIndex < 0 || groupIndex >= groups.size()) {
@@ -154,7 +115,7 @@ public class Abuta {
             }
             Group group = groups.get(groupIndex);
 
-            String body = Menu.getString("Enter message:").trim();
+            body = Menu.getString("Enter message:").trim();
             if (body.isEmpty()) {
                 output = "Message cannot be empty.";
                 return;
@@ -172,7 +133,7 @@ public class Abuta {
             }
             Account recipient = accounts.get(recipientIndex);
 
-            String body = Menu.getString("Enter message:").trim();
+            body = Menu.getString("Enter message:").trim();
             if (body.isEmpty()) {
                 output = "Message cannot be empty.";
                 return;
@@ -180,8 +141,6 @@ public class Abuta {
 
             newMessage = new DirectMessage(author, recipient, body);
         }
-
-        new Message(author, message, newMessage.toString());
 
         output = "Reply added successfully.";
     }
