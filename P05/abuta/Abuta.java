@@ -63,6 +63,27 @@ public class Abuta {
         }
     }
 
+    private void showRepliedTo() {
+        if (message.getRepliedTo() == null) {
+            output = "No parent message.";
+        } else {
+            message = message.getRepliedTo();
+        }
+    }
+
+    private void showReply() {
+        if (message.getReply(0) == null) {
+            output = "No replies available.";
+        } else {
+            int index = Menu.getInt("Choose a reply :");
+            if (message.getReply(index) != null) {
+                message = message.getReply(index);
+            } else {
+                output = "Invalid selection.";
+            }
+        }
+    }
+
     private void endApp() {
         running = false;
     }
