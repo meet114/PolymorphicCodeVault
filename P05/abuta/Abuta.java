@@ -181,11 +181,9 @@ public class Abuta {
             newMessage = new DirectMessage(author, recipient, body);
         }
 
-        if (message != null) {
-            message = newMessage;
-        } else {
-            output = "Error: Cannot add reply to a null message.";
-        }
+        new Message(author, message, newMessage.toString());
+
+        output = "Reply added successfully.";
     }
 
     public static void main(String[] args) {

@@ -9,7 +9,7 @@ import java.util.Date;
  * Messages can be standalone or replies to other messages, and they can accumulate replies.
  *
  * @author Meetkumar Saspara
- * @version 1.1
+ * @version 1.2
  * @since 2025
  */
 public class Message {
@@ -96,7 +96,11 @@ public class Message {
         if (!replies.isEmpty()) {
             sb.append("Replies: ");
             for (int i = 0; i < replies.size(); i++) {
-                sb.append(replies.get(i).from.toString());
+                sb
+                    .append("[")
+                    .append(i)
+                    .append("] ")
+                    .append(replies.get(i).from.toString());
                 if (i < replies.size() - 1) {
                     sb.append(", ");
                 }
