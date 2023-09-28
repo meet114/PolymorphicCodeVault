@@ -41,13 +41,31 @@ public class Abuta {
         menu.addMenuItem(new MenuItem("Add Reply", this::reply));
     }
 
+    public void mdi() {
+        while (running) {
+            System.out.println("=== abUTA Social Media ===");
+            System.out.println(output);
+            output = "";
+            System.out.println("Current Message: \n" + message);
+
+            System.out.println(menu.toString());
+
+            int choice = Menu.getInt("Choose an option:");
+            menu.run(choice);
+
+            if (message.getReply(0) != null) {
+                message = message.getReply(0);
+            }
+
+            if (message.getRepliedTo() == null) {
+                running = false;
+            }
+        }
+    }
+
     private void endApp() {
         running = false;
     }
-
-    private void showRepliedTo() {}
-
-    private void showReply() {}
 
     private void reply() {}
 }
