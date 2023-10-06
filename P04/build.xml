@@ -8,7 +8,7 @@
   </target>
 
   <target name="javadoc" description="Generate JavaDoc">
-    <javadoc packagenames="account.*,message.*"
+    <javadoc packagenames="account.*,message.*,abuta.*"
              sourcepath="."
              defaultexcludes="yes"
              destdir="docs/api"
