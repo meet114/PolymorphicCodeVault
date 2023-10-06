@@ -14,6 +14,7 @@ public class Abuta {
     private Menu menu;
     private String output;
     private boolean running;
+    private String filename = "default.txt";
 
     public Abuta() {
         this.running = true;
@@ -225,9 +226,9 @@ public class Abuta {
 
     public void newAbuta() {}
 
-    public void open() {}
-
     public void save() {}
 
     public void saveAs() {}
+
+    public void open() {}
 }

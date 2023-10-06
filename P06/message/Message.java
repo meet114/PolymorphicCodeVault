@@ -122,7 +122,29 @@ public class Message {
         return replies.size();
     }
 
-    public Message(BufferedReader br, Message repliedTo) throws IOException {}
+    public Message(BufferedReader br, Message repliedTo) throws IOException {
+        this.from = new Account(br);
+        long time = Long.parseLong(br.readLine());
+        this.date = new Date(time);
+        this.body = br.readLine();
+        this.replies = new ArrayList<>();
+        int numReplies = Integer.parseInt(br.readLine());
+        for (int i = 0; i < numReplies; i++) {
+            String type = br.readLine();
+            Message reply;
+            if (type.equals("message.Post")) reply =
+                new Post(br, this); else if (
+                type.equals("message.DirectMessage")
+            ) reply = new DirectMessage(br, this); else throw new IOException(
+                "Unknown message type: " + type
+            );
+            replies.add(reply);
+        }
+        this.repliedTo = repliedTo;
+        if (repliedTo != null) {
+            repliedTo.addReply(this);
+        }
+    }
 
     public void save(BufferedWriter bw) throws IOException {
         from.save(bw);
