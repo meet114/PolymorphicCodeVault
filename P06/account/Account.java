@@ -83,7 +83,21 @@ public class Account {
         return result;
     }
 
-    public Account(BufferedReader br) throws IOException {}
+    public Account(BufferedReader br) throws IOException {
+        this.name = br.readLine();
+        this.id = Integer.parseInt(br.readLine());
+        nextID = Integer.parseInt(br.readLine());
+        this.status = AccountStatus.valueOf(br.readLine());
+    }
 
-    public void save(BufferedWriter bw) throws IOException {}
+    public void save(BufferedWriter bw) throws IOException {
+        bw.write(name);
+        bw.newLine();
+        bw.write(String.valueOf(id));
+        bw.newLine();
+        bw.write(String.valueOf(nextID));
+        bw.newLine();
+        bw.write(status.name());
+        bw.newLine();
+    }
 }
