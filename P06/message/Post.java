@@ -1,6 +1,9 @@
 package message;
 
 import account.Account;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
 
 /**
  * Represents a public post in a specific group.
@@ -57,4 +60,11 @@ public class Post extends Message {
     public String toString() {
         return "Group: " + group + "\n" + super.toString();
     }
+
+    public Post(BufferedReader br, Message repliedTo) throws IOException {
+        super(br, repliedTo);
+    }
+
+    @Override
+    public void save(BufferedWriter bw) throws IOException {}
 }

@@ -1,6 +1,9 @@
 package message;
 
 import account.Account;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -118,4 +121,8 @@ public class Message {
     public int getNumReplies() {
         return replies.size();
     }
+
+    public Message(BufferedReader br, Message repliedTo) throws IOException {}
+
+    public void save(BufferedWriter bw) throws IOException {}
 }

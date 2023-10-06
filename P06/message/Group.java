@@ -1,5 +1,9 @@
 package message;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+
 /**
  * Represents a group in the messaging system.
  * A group can be enabled or disabled to control its activity.
@@ -68,4 +72,8 @@ public class Group {
     public String toString() {
         return active ? name : name + " [inactive]";
     }
+
+    public Group(BufferedReader br) throws IOException {}
+
+    public void save(BufferedWriter bw) throws IOException {}
 }

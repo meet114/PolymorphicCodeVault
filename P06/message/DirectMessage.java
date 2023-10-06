@@ -1,6 +1,9 @@
 package message;
 
 import account.Account;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
 
 /**
  * Represents a private direct message sent to a specific recipient.
@@ -55,4 +58,12 @@ public class DirectMessage extends Message {
     public String toString() {
         return "To: " + recipient + "\n" + super.toString();
     }
+
+    public DirectMessage(BufferedReader br, Message repliedTo)
+        throws IOException {
+        super(br, repliedTo);
+    }
+
+    @Override
+    public void save(BufferedWriter bw) throws IOException {}
 }

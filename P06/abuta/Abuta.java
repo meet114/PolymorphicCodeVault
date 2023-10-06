@@ -222,4 +222,12 @@ public class Abuta {
     public static void main(String[] args) {
         new Abuta().mdi();
     }
+
+    public void newAbuta() {}
+
+    public void open() {}
+
+    public void save() {}
+
+    public void saveAs() {}
 }

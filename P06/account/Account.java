@@ -1,5 +1,9 @@
 package account;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+
 /**
  * Represents a user account in the system.
  * Each account has a name, unique ID, and a status indicating whether it is normal, muted, or blocked.
@@ -78,4 +82,8 @@ public class Account {
         }
         return result;
     }
+
+    public Account(BufferedReader br) throws IOException {}
+
+    public void save(BufferedWriter bw) throws IOException {}
 }
