@@ -62,8 +62,12 @@ public class DirectMessage extends Message {
     public DirectMessage(BufferedReader br, Message repliedTo)
         throws IOException {
         super(br, repliedTo);
+        this.recipient = new Account(br);
     }
 
     @Override
-    public void save(BufferedWriter bw) throws IOException {}
+    public void save(BufferedWriter bw) throws IOException {
+        super.save(bw);
+        recipient.save(bw);
+    }
 }

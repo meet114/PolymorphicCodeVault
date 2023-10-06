@@ -63,8 +63,12 @@ public class Post extends Message {
 
     public Post(BufferedReader br, Message repliedTo) throws IOException {
         super(br, repliedTo);
+        this.group = new Group(br);
     }
 
     @Override
-    public void save(BufferedWriter bw) throws IOException {}
+    public void save(BufferedWriter bw) throws IOException {
+        super.save(bw);
+        group.save(bw);
+    }
 }

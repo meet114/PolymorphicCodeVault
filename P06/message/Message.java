@@ -17,11 +17,11 @@ import java.util.Date;
  */
 public class Message {
 
-    private Account from;
-    private Date date;
-    private Message repliedTo;
-    private ArrayList<Message> replies;
-    private String body;
+    protected Account from;
+    protected Message repliedTo;
+    protected String body;
+    protected Date date;
+    protected ArrayList<Message> replies;
 
     /**
      * Constructs a new message.
@@ -124,5 +124,18 @@ public class Message {
 
     public Message(BufferedReader br, Message repliedTo) throws IOException {}
 
-    public void save(BufferedWriter bw) throws IOException {}
+    public void save(BufferedWriter bw) throws IOException {
+        from.save(bw);
+        bw.write(String.valueOf(date.getTime()));
+        bw.newLine();
+        bw.write(body);
+        bw.newLine();
+        bw.write(String.valueOf(replies.size()));
+        bw.newLine();
+        for (Message reply : replies) {
+            bw.write(reply.getClass().getName());
+            bw.newLine();
+            reply.save(bw);
+        }
+    }
 }
