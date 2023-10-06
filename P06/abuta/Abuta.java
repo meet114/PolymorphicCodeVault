@@ -1,6 +1,11 @@
 package abuta;
 
 import account.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import menu.*;
@@ -53,6 +58,11 @@ public class Abuta {
         menu.addMenuItem(
             new MenuItem("Enable/Disable Group", this::toggleGroupStatus)
         );
+
+        menu.addMenuItem(new MenuItem("New abUTA", this::newAbuta));
+        menu.addMenuItem(new MenuItem("Save", this::save));
+        menu.addMenuItem(new MenuItem("Save As", this::saveAs));
+        menu.addMenuItem(new MenuItem("Open", this::open));
     }
 
     public void mdi() {
@@ -224,11 +234,45 @@ public class Abuta {
         new Abuta().mdi();
     }
 
-    public void newAbuta() {}
+    public void newAbuta() {
+        Message root = message;
+        while (root.getRepliedTo() != null) {
+            root = root.getRepliedTo();
+        }
+        message = root;
+    }
 
-    public void save() {}
+    public void save() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
+            Message root = message;
+            while (root.getRepliedTo() != null) {
+                root = root.getRepliedTo();
+            }
+            root.save(bw);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-    public void saveAs() {}
+    public void saveAs() {
+        String newFilename = Menu.getString("Enter new filename: ");
+        if (newFilename != null && !newFilename.isEmpty()) {
+            filename = newFilename;
+            save();
+        }
+    }
 
-    public void open() {}
+    public void open() {
+        String fileToOpen = Menu.getString("Enter filename to open: ");
+        if (fileToOpen != null && !fileToOpen.isEmpty()) {
+            filename = fileToOpen;
+            try (
+                BufferedReader br = new BufferedReader(new FileReader(filename))
+            ) {
+                message = new Post(br, null);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
