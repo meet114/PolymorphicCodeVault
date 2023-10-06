@@ -1,27 +1,24 @@
 <?xml version="1.0"?>
 <project name="CSE1325" default="build">
-
   <target name="build" description="Compile source tree java files">
     <javac includeantruntime="false" debug="true" failonerror="true">
       <src path="."/>
     </javac>
   </target>
-
   <target name="javadoc" description="Generate JavaDoc">
-      <javadoc packagenames="abuta.*:account.*:message.*:menu.*"
-           sourcepath="."
-           defaultexcludes="yes"
-           destdir="docs/api"
-           author="true"
-           version="true"
-           use="true"
-           windowtitle="abUTA API">
-           <doctitle><![CDATA[<h1>menu Package</h1>]]></doctitle>
-          <bottom><![CDATA[<i>Copyright &#169; 2025 Professor George F. Rice. Dual licensed as CC BY International 4.0 and the MIT License</i>]]></bottom>
-          <tag name="license.agreement" scope="all" description="Licensed under:"/>
-      </javadoc>
+    <javadoc packagenames="account.*,message.*,abuta.*,menu.*"
+             sourcepath="."
+             defaultexcludes="yes"
+             destdir="docs/api"
+             author="true"
+             version="true"
+             use="true"
+             windowtitle="abUTA API">
+      <doctitle><![CDATA[<h1>Mavs abUTA Social Network</h1>]]></doctitle>
+      <bottom><![CDATA[<i>Copyright &#169; 2025 Meetkumar Saspara. Licensed as CC BY-SA International 4.0</i>]]></bottom>
+      <tag name="license.agreement" scope="all" description="Licensed under:"/>
+    </javadoc>
   </target>
-
   <target name="clean" description="Clean output files">
     <delete dir="docs/api"/>
     <delete dir="docs"/>
