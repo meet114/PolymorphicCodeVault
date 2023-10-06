@@ -73,7 +73,16 @@ public class Group {
         return active ? name : name + " [inactive]";
     }
 
-    public Group(BufferedReader br) throws IOException {}
+    public Group(BufferedReader br) throws IOException {
+        this.name = br.readLine();
 
-    public void save(BufferedWriter bw) throws IOException {}
+        this.active = Boolean.parseBoolean(br.readLine());
+    }
+
+    public void save(BufferedWriter bw) throws IOException {
+        bw.write(name);
+        bw.newLine();
+        bw.write(String.valueOf(active));
+        bw.newLine();
+    }
 }
