@@ -9,6 +9,14 @@ NOTE: These are measurements which may vary plus your opinions which may vary a 
 
 QUESTION 1: What command line argument(s) did you use to achieve a 45 to 60 second runtime? Note: We're only interested in the "real" seconds for this question if you are using the bash time command.
 
+Answer: meetsaspara@MacBook-Pro full_credit % time java turing.BreakEnigmaFile 85
+	Output:
+		....,....,....,....:....,....,....,....:....,....,....,....:....,....,....,....:....,
+
+		VERIFY checksum of all decryptions is -168469273
+		java turing.BreakEnigmaFile 85  46.83s user 0.21s system 100% cpu 46.778 total
+
+
 
 
 
