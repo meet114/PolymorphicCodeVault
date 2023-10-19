@@ -33,11 +33,13 @@ public class BreakEnigmaFile {
     // We print it after solving each file to ensure all decryptions succeeded!
     // Once your code is threaded, be sure to verify that you're getting this right.
     private static int hashCodeSum = 0;
+    private static final Object lock = new Object();
 
     // This is the list of encrypted string / expected hashcode pairs to break.
     // The first argument specifies how many to load from filename.
     // IMPORTANT: ArrayList is NOT thread-safe! If you read or write it within
     //   a thread, you MUST take precautions as discussed in Lecture 14!
+
     private static List<EncryptedPair> encrypteds = new ArrayList<>();
 
     // -------------------------------------------------------------------
@@ -63,7 +65,7 @@ public class BreakEnigmaFile {
             while (encrypteds.size() < numStrings) {
                 String encrypted = br.readLine();
                 int decryptedHashCode = Integer.parseInt(br.readLine());
-                String settings = br.readLine(); // Do NOT use this one!
+                br.readLine();
 
                 encrypteds.add(new EncryptedPair(encrypted, decryptedHashCode));
             }
@@ -177,11 +179,13 @@ public class BreakEnigmaFile {
                                             ) {
                                                 // =======================================
                                                 // Protect hashCodeSum from data corruption!
-                                                hashCodeSum +=
-                                                    decrypted.hashCode(); // NOT threadsafe!
-                                                // End data protection region
-                                                // =======================================
-                                                return;
+                                                synchronized (lock) {
+                                                    hashCodeSum +=
+                                                        decrypted.hashCode(); // NOT threadsafe!
+                                                    // End data protection region
+                                                    // =======================================
+                                                    return;
+                                                }
                                             }
                                         }
                                     }
