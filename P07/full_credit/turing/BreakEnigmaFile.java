@@ -14,7 +14,7 @@ public class BreakEnigmaFile {
     // ==================================================================
     // You may need to add one or more private fields here to enable threading.
     // That is fine and expected!
-
+    private static final Object lock = new Object();
     // End section to be added (but see the two sections below!)
     // ==================================================================
 
@@ -33,7 +33,6 @@ public class BreakEnigmaFile {
     // We print it after solving each file to ensure all decryptions succeeded!
     // Once your code is threaded, be sure to verify that you're getting this right.
     private static int hashCodeSum = 0;
-    private static final Object lock = new Object();
 
     // This is the list of encrypted string / expected hashcode pairs to break.
     // The first argument specifies how many to load from filename.
@@ -65,7 +64,7 @@ public class BreakEnigmaFile {
             while (encrypteds.size() < numStrings) {
                 String encrypted = br.readLine();
                 int decryptedHashCode = Integer.parseInt(br.readLine());
-                br.readLine();
+                String settings = br.readLine(); // Do NOT use this one!
 
                 encrypteds.add(new EncryptedPair(encrypted, decryptedHashCode));
             }
