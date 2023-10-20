@@ -93,25 +93,19 @@ public class BreakEnigmaFile {
             threads[t] =
                 new Thread(() -> {
                     System.out.println("+++Starting thread " + threadIndex);
-                    for (
-                        int i = threadIndex;
-                        i < encrypteds.size();
-                        i += numThreads
-                    ) {
-                        BreakEnigmaFile breaker = new BreakEnigmaFile();
-                        breaker.breakManager(i, numThreads);
-                    }
+                    BreakEnigmaFile breaker = new BreakEnigmaFile();
+                    breaker.breakManager(threadIndex, numThreads);
                     System.out.println("###Ending thread " + threadIndex);
                 });
             threads[t].start();
         }
-
-        for (Thread thread : threads) {
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        // Wait for all threads to complete
+        try {
+            for (int i = 0; i < numThreads; i++) {
+                threads[i].join();
             }
+        } catch (InterruptedException e) {
+            System.err.println("Thread interrupted: " + e);
         }
 
         System.out.println(
@@ -184,8 +178,9 @@ public class BreakEnigmaFile {
                                                         decrypted.hashCode(); // NOT threadsafe!
                                                     // End data protection region
                                                     // =======================================
-                                                    return;
+
                                                 }
+                                                return;
                                             }
                                         }
                                     }

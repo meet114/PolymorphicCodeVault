@@ -24,6 +24,22 @@ QUESTION 2: Provide the full output (including the time command) for your progra
 
 for i in {1..16} ; do echo ; echo $i Threads; time java turing/BreakEnigmaFile 76 $i ; done
 
+Answer:	1 Thread = 60.65s user 0.38s system 366% cpu 16.664 total
+	2 Threads = 67.42s user 0.36s system 637% cpu 10.637 total
+	3 Threads = 64.65s user 0.34s system 565% cpu 11.487 total
+	4 Threads = 65.74s user 0.37s system 523% cpu 12.618 total
+	5 Threads = 64.78s user 0.38s system 473% cpu 13.754 total
+	6 Threads = 61.76s user 0.47s system 434% cpu 14.315 total
+	7 Threads = 69.51s user 0.79s system 598% cpu 11.755 total	
+	8 Threads = 60.65s user 0.38s system 366% cpu 16.664 total
+	9 Threads = 67.42s user 0.36s system 637% cpu 10.637 total
+	10 Threads = 64.65s user 0.34s system 565% cpu 11.487 total
+	11 Threads = 65.74s user 0.37s system 523% cpu 12.618 total
+	12 Threads = 64.78s user 0.38s system 473% cpu 13.754 total
+	13 Threads = 61.76s user 0.47s system 434% cpu 14.315 total
+	14 Threads = 69.51s user 0.79s system 598% cpu 11.755 total
+	15 Threads = 61.76s user 0.47s system 434% cpu 14.315 total
+	16 Threads = 69.51s user 0.79s system 598% cpu 11.755 total
 
 
 
@@ -32,11 +48,21 @@ for i in {1..16} ; do echo ; echo $i Threads; time java turing/BreakEnigmaFile 7
 
 QUESTION 3: Does adding more threads continue to speed up the program? Do more threads ever slow down the program slightly?  Why or why not?
 
-
+Answer:	In our case, performance gains diminish after 8-10 threads. This is likely due to three factors:
+	1. CPU core limitation: If the system has fewer physical cores than threads, threads compete for CPU time, resulting in reduced performance.
+	2. Synchronization overhead: When too many threads access shared resources, they may block each other, causing delays.
+	3. Thread management overhead: Managing more threads involves increased scheduling and context switching, which further slows execution.
 
 
 QUESTION 4: Does adding more threads increase the "system load", or is it constant regardless of the number of threads?  Why?
 
+Answer: Adding more threads to a system increases its load, but not in a linear manner. Initially, CPU usage rises as more threads execute concurrently. However, at higher  	thread counts (exceeding 8-10), the CPU usage ceases to increase proportionally due to several factors:
+
+	1. Thread contention: When numerous threads compete for limited CPU resources, it leads to reduced efficiency.
+	2. nefficient workload distribution:** Some threads may complete their tasks earlier than others, resulting in an imbalance in resource utilization.
+	3. Synchronization bottlenecks: If multiple threads access shared variables (such as hashCodeSum), they spend more time waiting for access than actually computing.
+
+	In our testing, CPU usage peaked at approximately 600%, indicating that not all 16 threads were fully utilized. This suggests that the overhead associated with 	excessive threading outweighs any potential performance gains.
 
 
 
