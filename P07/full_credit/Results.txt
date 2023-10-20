@@ -71,7 +71,22 @@ BONUS
 
 QUESTION 5: Time your Bonus version of as you did for the Full Credit version. Is this additional layer of threading faster, slower, or roughly equivalent in performance? Why?
 
-Answer: Full Credit Execution Time (16 Threads): 11.755 seconds. Bonus Execution Time (16 Threads): 11.095 seconds (improved)
+Answer: 1 Thread  =  46.772s user 0.22s system 100% cpu 46.772 total
+2 Threads =  49.36s user 0.25s system 190% cpu 26.070 total
+3 Threads =  51.37s user 0.23s system 241% cpu 21.383 total
+4 Threads =  52.43s user 0.25s system 313% cpu 16.800 total
+5 Threads =  53.35s user 0.24s system 365% cpu 14.643 total
+6 Threads =  56.94s user 0.29s system 403% cpu 14.184 total
+7 Threads =  59.88s user 0.28s system 465% cpu 12.918 total
+8 Threads =  62.00s user 0.30s system 505% cpu 12.320 total
+9 Threads =  64.13s user 0.33s system 538% cpu 11.964 total
+10 Threads =  65.25s user 0.34s system 559% cpu 11.724 total
+11 Threads =  66.18s user 0.39s system 579% cpu 11.479 total
+12 Threads =  66.49s user 0.36s system 588% cpu 11.353 total
+13 Threads =  66.92s user 0.36s system 590% cpu 11.392 total
+14 Threads =  66.53s user 0.41s system 591% cpu 11.320 total
+15 Threads =  67.01s user 0.40s system 594% cpu 11.332 total
+16 Threads =  67.24s user 0.41s system 609% cpu 11.095 total
 
 1. Better Workload Distribution:Instead of statically assigning work in a fixed pattern (e.g., `i, i+numThreads, i+2*numThreads`), the Bonus version employs dynamic work fetching.This approach eliminates idle threads and ensures a more balanced workload distribution.
 
