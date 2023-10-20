@@ -15,7 +15,7 @@ public class BreakEnigmaFile {
     // You may need to add one or more private fields here to enable threading.
     // That is fine and expected!
     private static final Object lock = new Object();
-
+    private static int nextWorkIndex = 0;
     // End section to be added (but see the two sections below!)
     // ==================================================================
 
@@ -40,6 +40,16 @@ public class BreakEnigmaFile {
     // IMPORTANT: ArrayList is NOT thread-safe! If you read or write it within
     //   a thread, you MUST take precautions as discussed in Lecture 14!
     private static List<EncryptedPair> encrypteds = new ArrayList<>();
+
+    public int getNextWorkIndex() {
+        synchronized (lock) {
+            if (nextWorkIndex < encrypteds.size()) {
+                return nextWorkIndex++;
+            } else {
+                return -1; // No more work
+            }
+        }
+    }
 
     // -------------------------------------------------------------------
     // MAIN!
@@ -81,33 +91,40 @@ public class BreakEnigmaFile {
         // OMIT THEM in your threaded version.
         // Instead, add "+++Starting thread nnn" and "###Ending thread nnn"
         //   messages to your breakManager rewrite to monitor thread status.
+        // Initialize the work index counter
+        nextWorkIndex = 0;
+
+        // Create and start the threads
+        Thread[] threads = new Thread[numThreads];
         for (int i = 0; i < numThreads; i++) {
-            final int threadIndex = i;
-            Thread thread = new Thread(() -> {
-                System.out.println("+++Starting thread " + threadIndex);
-                for (
-                    int j = threadIndex;
-                    j < encrypteds.size();
-                    j += numThreads
-                ) {
+            final int threadId = i;
+            threads[i] =
+                new Thread(() -> {
+                    System.out.println("+++Starting thread " + threadId);
                     BreakEnigmaFile breaker = new BreakEnigmaFile();
-                    breaker.breakManager(j, numThreads);
-                }
-                System.out.println("###Ending thread " + threadIndex);
-            });
-            thread.start();
+                    int workIndex;
+
+                    // Keep asking for work until no more work is available
+                    while ((workIndex = breaker.getNextWorkIndex()) >= 0) {
+                        EncryptedPair pair = encrypteds.get(workIndex);
+                        breaker.breakIt(pair.encrypted, pair.decryptedHashcode);
+                    }
+
+                    System.out.println("###Ending thread " + threadId);
+                });
+
+            threads[i].start();
         }
 
-        // Wait for threads to finish
-        for (Thread thread : Thread.getAllStackTraces().keySet()) {
-            if (thread != Thread.currentThread()) {
-                try {
-                    thread.join();
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
+        // Wait for all threads to complete
+        try {
+            for (int i = 0; i < numThreads; i++) {
+                threads[i].join();
             }
+        } catch (InterruptedException e) {
+            System.err.println("Thread interrupted: " + e);
         }
+
         System.out.println(
             "\n\nVERIFY checksum of all decryptions is " + hashCodeSum
         );
@@ -122,8 +139,10 @@ public class BreakEnigmaFile {
     // For example, if index is 0 and numThreads is 5, you would loop
     //   to solve encrypteds indices 0, 5, 10, 15, ... until the end.
     public void breakManager(int index, int numThreads) {
-        EncryptedPair pair = null;
-        pair = encrypteds.get(index); // NOT thread-safe!
+        EncryptedPair pair;
+        synchronized (lock) {
+            pair = encrypteds.get(index); // NOT thread-safe!
+        }
         breakIt(pair.encrypted, pair.decryptedHashcode);
     }
 
@@ -172,8 +191,10 @@ public class BreakEnigmaFile {
                                             ) {
                                                 // =======================================
                                                 // Protect hashCodeSum from data corruption!
-                                                hashCodeSum +=
-                                                    decrypted.hashCode(); // NOT threadsafe!
+                                                synchronized (lock) {
+                                                    hashCodeSum +=
+                                                        decrypted.hashCode();
+                                                }
                                                 // End data protection region
                                                 // =======================================
                                                 return;
