@@ -71,14 +71,23 @@ BONUS
 
 QUESTION 5: Time your Bonus version of as you did for the Full Credit version. Is this additional layer of threading faster, slower, or roughly equivalent in performance? Why?
 
+Answer: Full Credit Execution Time (16 Threads): 11.755 seconds. Bonus Execution Time (16 Threads): 11.095 seconds (improved)
+
+1. Better Workload Distribution:Instead of statically assigning work in a fixed pattern (e.g., `i, i+numThreads, i+2*numThreads`), the Bonus version employs dynamic work fetching.This approach eliminates idle threads and ensures a more balanced workload distribution.
+
+2. Reduced Thread Overhead:In the Bonus version, threads don’t unnecessarily wait when their assigned work is completed early.This optimization avoids wasted CPU cycles and enhances execution efficiency.
+
+3. Enhanced CPU Utilization:The Bonus version achieves a peak CPU utilization of 609%, significantly higher than the Full Credit version’s peak of 598%.This suggests improved parallel execution capabilities.
+
+In conclusion, the Bonus version executes faster due to dynamic work allocation. However, the improvement is modest, amounting to approximately 6% faster execution. The primary reason for this small improvement lies in the highly compute-intensive nature of the task itself. The bottleneck is not primarily due to threading inefficiencies but rather to the brute-force decryption process.
 
 
 
 
 QUESTION 6: Which did you find easier to code overall, the hard-coded allocation or the thread pool? Why?
 
+Answer: No Need to Pre-Calculate Thread Assignments:In the Full Credit version, threads had to precisely determine which indices they were responsible for (`i, i+numThreads, i+2*numThreads`). This required careful loop logic to avoid skipping or duplicating tasks.
 
+Simplified Work Distribution:In the Bonus version, each thread simply requests work dynamically. This eliminates complexity since the thread doesn’t need to know how many tasks are left.
 
-
-
-
+Debugging:The dynamic starting and stopping of threads make debugging simpler. The Bonus version consistently distributes tasks until all work is done, while in the Full Credit version, some threads might finish early and remain idle.The Bonus version was easier to code, more flexible, and led to better workload balancing.
