@@ -11,7 +11,6 @@ int main(int argc, char* argv[]) {
     }
 
     try {
-        // Banner
         std::cout << "=== BOOM! Word Guessing Game ===" << std::endl;
         std::cout << "Guess letters or solve the puzzle before the firecracker goes boom!"
                   << std::endl;

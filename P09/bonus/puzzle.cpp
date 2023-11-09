@@ -2,10 +2,12 @@
 
 #include <cctype>
 
-Puzzle::Puzzle(std::string solution) : _solution(solution), _guesses(" ") {
+Puzzle::Puzzle(std::string solution) : _solution(solution) {
     if (solution.empty()) {
         throw std::invalid_argument("Solution cannot be empty");
     }
+
+    _guesses.insert(' ');
 }
 
 Puzzle::~Puzzle() {}
@@ -13,11 +15,11 @@ Puzzle::~Puzzle() {}
 bool Puzzle::guess(char c) {
     c = std::tolower(c);
 
-    if (!std::isalpha(c) || _guesses.find(c) != std::string::npos) {
+    if (!std::isalpha(c) || _guesses.count(c) > 0) {
         throw std::invalid_argument("Invalid or already guessed character");
     }
 
-    _guesses += c;
+    _guesses.insert(c);
 
     return _solution.find(c) != std::string::npos;
 }
@@ -27,7 +29,7 @@ bool Puzzle::solve(std::string attempt) { return attempt == _solution; }
 std::string Puzzle::board() {
     std::string result = "";
     for (char c : _solution) {
-        if (!std::isalpha(c) || _guesses.find(std::tolower(c)) != std::string::npos) {
+        if (!std::isalpha(c) || _guesses.count(std::tolower(c)) > 0) {
             result += c;
         } else {
             result += '_';
@@ -38,4 +40,10 @@ std::string Puzzle::board() {
 
 std::string Puzzle::solution() { return _solution; }
 
-std::string Puzzle::guesses() { return _guesses; }
+std::string Puzzle::guesses() {
+    std::string result = "";
+    for (char c : _guesses) {
+        result += c;
+    }
+    return result;
+}
