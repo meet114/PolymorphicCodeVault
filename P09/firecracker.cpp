@@ -16,7 +16,7 @@ bool Firecracker::tic() {
 }
 
 std::string Firecracker::firecracker() {
-        std::string fuse = "";
+    std::string fuse = "";
     for (int i = 0; i < _length; i++) {
         fuse += "-";
     }
