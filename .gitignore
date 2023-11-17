@@ -1,15 +1,11 @@
 # Compiled class file
 *.class
-
 # Log file
 *.log
-
 # BlueJ files
 *.ctxt
-
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
-
 # Package Files #
 *.jar
 *.war
@@ -18,44 +14,75 @@
 *.zip
 *.tar.gz
 *.rar
-
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
 .DS_Store
 # C++ #############
-
 # Prerequisites
 *.d
-
 # Compiled Object files
 *.slo
 *.lo
 *.o
 *.obj
-
 # Precompiled Headers
 *.gch
 *.pch
-
 # Compiled Dynamic libraries
 *.so
 *.dylib
 *.dll
-
 # Fortran module files
 *.mod
 *.smod
-
 # Compiled Static libraries
 *.lai
 *.la
 *.a
 *.lib
-
 # Executables
 *.exe
 *.out
 *.app
 
+# Specific executables for P10
+test_terminal
+test_font
+test_color
+demo
 
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*~
+*.sublime-*
+.project
+.cproject
+.settings/
+*.code-workspace
+
+# Additional macOS files
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# Backup files
+*~
+*.bak
+*.tmp
+*.temp
+
+# Build directories
+build/
+Debug/
+Release/
+cmake-build-*/
+
+# Other
+core
+*.dSYM/

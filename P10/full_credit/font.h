@@ -9,12 +9,12 @@ class Font : public ANSI {
 
     std::ostream& output(std::ostream& ost) const override;
 
-    bool operator==(const Font&) const { return true; }
-    bool operator!=(const Font&) const { return false; }
-    bool operator<(const Font&) const { return false; }
-    bool operator<=(const Font&) const { return true; }
-    bool operator>(const Font&) const { return false; }
-    bool operator>=(const Font&) const { return true; }
+    bool operator==(const Font& rhs) const { return _font == rhs._font; }
+    bool operator!=(const Font& rhs) const { return _font != rhs._font; }
+    bool operator<(const Font& rhs) const { return _font < rhs._font; }
+    bool operator<=(const Font& rhs) const { return _font <= rhs._font; }
+    bool operator>(const Font& rhs) const { return _font > rhs._font; }
+    bool operator>=(const Font& rhs) const { return _font >= rhs._font; }
 
    private:
     int _font;
