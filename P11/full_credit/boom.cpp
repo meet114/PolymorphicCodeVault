@@ -1,4 +1,8 @@
+#include <cstdlib>
+#include <ctime>
+#include <fstream>
 #include <iostream>
+#include <set>
 #include <string>
 
 #include "firecracker.h"
@@ -6,29 +10,50 @@
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
-        std::cout << "Usage: " << argv[0] << " 'phrase to guess'" << std::endl;
+        std::cout << "Usage: " << argv[0] << " <file of puzzles>" << std::endl;
         return 1;
     }
 
     try {
-        std::cout << "=== BOOM! Word Guessing Game ===" << std::endl;
-        std::cout << "Guess letters or solve the puzzle before the firecracker goes boom!"
+        srand(time(NULL));
+
+        std::ifstream puzzleFile(argv[1]);
+        if (!puzzleFile) {
+            throw std::runtime_error("Could not open file " + std::string(argv[1]));
+        }
+
+        std::set<std::string> puzzles;
+        std::string line;
+        while (std::getline(puzzleFile, line)) {
+            puzzles.insert(line);
+        }
+
+        std::cout << puzzles.size() << " quotes loaded." << std::endl;
+
+        int index = rand() % puzzles.size();
+        auto it = puzzles.begin();
+        std::advance(it, index);
+
+        Puzzle puzzle(*it);
+
+        std::cout << "=================\n";
+        std::cout << "   B O O M !\n";
+        std::cout << "=================\n" << std::endl;
+
+        std::cout << "Enter lower case letters to guess,\n"
+                  << "! to propose a solution,\n"
+                  << "0 to exit.\n"
                   << std::endl;
-        std::cout << "Enter '0' to give up or '!' to solve the puzzle." << std::endl;
-        std::cout << "============================" << std::endl << std::endl;
 
         Firecracker fuse(8);
-        Puzzle puzzle(argv[1]);
-
         bool gameOver = false;
         bool playerWon = false;
 
         while (!gameOver) {
-            std::cout << "Firecracker: " << fuse.firecracker() << std::endl;
+            std::cout << fuse.firecracker() << std::endl;
             std::cout << "Guessed: " << puzzle.guesses() << std::endl;
-            std::cout << "Board: " << puzzle.board() << std::endl;
+            std::cout << puzzle.board() << ": ";
 
-            std::cout << "Your guess: ";
             char guess;
             std::cin >> guess;
             std::cin.ignore(10000, '\n');
@@ -50,8 +75,10 @@ int main(int argc, char* argv[]) {
                 }
             } else {
                 try {
-                    bool correctGuess = puzzle.guess(guess);
-                    if (!correctGuess) {
+                    int count = puzzle.guess(guess);
+                    std::cout << "Found " << count << " " << guess << std::endl;
+
+                    if (count == 0) {
                         bool stillAlive = fuse.tic();
                         if (!stillAlive) {
                             std::cout << "BOOM! The firecracker exploded!" << std::endl;
