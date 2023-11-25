@@ -2,6 +2,7 @@
 #define PUZZLE_H
 #include <algorithm>
 #include <set>
+#include <sstream>
 #include <stdexcept>
 #include <string>
 
@@ -15,6 +16,7 @@ class Puzzle {
     virtual ~Puzzle();
     int guess(char c);
     bool solve(std::string attempt);
+    bool solved();
     std::string board();
     std::string solution();
     std::string guesses();

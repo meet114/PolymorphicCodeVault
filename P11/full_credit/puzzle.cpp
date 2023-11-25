@@ -31,15 +31,19 @@ int Puzzle::guess(char c) {
 bool Puzzle::solve(std::string attempt) { return attempt == _solution; }
 
 std::string Puzzle::board() {
-    std::string result = "";
-    for (char c : _solution) {
-        if (!std::isalpha(c) || _guesses.count(std::tolower(c)) > 0) {
-            result += c;
+    std::istringstream iss(_solution);
+    std::ostringstream oss;
+
+    char c;
+    while (iss.get(c)) {
+        if (!std::isalpha(c) || _guesses.count(c) > 0) {
+            oss << c;
         } else {
-            result += '_';
+            oss << '_';
         }
     }
-    return result;
+
+    return oss.str();
 }
 
 std::string Puzzle::solution() { return _solution; }
@@ -50,4 +54,12 @@ std::string Puzzle::guesses() {
         result += c;
     }
     return result;
+}
+bool Puzzle::solved() {
+    for (char c : _solution) {
+        if (std::isalpha(c) && _guesses.count(c) == 0) {
+            return false;
+        }
+    }
+    return true;
 }
