@@ -16,7 +16,7 @@ Puzzle::Puzzle(std::string solution) : _solution(solution) {
 
 Puzzle::~Puzzle() {}
 
-bool Puzzle::guess(char c) {
+int Puzzle::guess(char c) {
     c = std::tolower(c);
 
     if (!std::isalpha(c) || _guesses.count(c) > 0) {
@@ -25,7 +25,7 @@ bool Puzzle::guess(char c) {
 
     _guesses.insert(c);
 
-    return _solution.find(c) != std::string::npos;
+    return std::count(_solution.begin(), _solution.end(), c);
 }
 
 bool Puzzle::solve(std::string attempt) { return attempt == _solution; }
