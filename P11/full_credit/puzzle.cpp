@@ -7,6 +7,10 @@ Puzzle::Puzzle(std::string solution) : _solution(solution) {
         throw std::invalid_argument("Solution cannot be empty");
     }
 
+    for (char& c : _solution) {
+        c = std::tolower(c);
+    }
+
     _guesses.insert(' ');
 }
 
